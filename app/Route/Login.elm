@@ -17,7 +17,7 @@ import Pages.Form
 import PagesMsg exposing (PagesMsg)
 import Route
 import RouteBuilder exposing (App, StatefulRoute, StatelessRoute)
-import Server.Request as Request
+import Server.Request as Request exposing (Request)
 import Server.Response as Response exposing (Response)
 import Server.Session as Session
 import Shared
@@ -53,13 +53,18 @@ route =
         |> RouteBuilder.buildNoState { view = view }
 
 
-action : RouteParams -> Request.Parser (BackendTask FatalError (Response ActionData ErrorPage))
-action routeParams =
-    Request.formDataWithServerValidation (form |> Form.Handler.init identity)
+action : RouteParams -> Request -> BackendTask FatalError (Response ActionData ErrorPage)
+action routeParams request =
+    request
         |> MySession.withSession
-            (\nameResultData session ->
-                nameResultData
-                    |> BackendTask.map
+            (\session ->
+                case request |> Request.formDataWithServerValidation (form |> Form.Handler.init identity) of
+                    Nothing ->
+                        BackendTask.fail (FatalError.fromString "Invalid form response")
+
+                    Just nameResultData ->
+                        nameResultData
+                        |> BackendTask.map
                         (\nameResult ->
                             case nameResult of
                                 Err errors ->
@@ -178,37 +183,34 @@ form =
         )
         |> Form.field "name" (Field.text |> Field.required "Required")
 
+data : RouteParams -> Request -> BackendTask FatalError (Response Data ErrorPage)
+data routeParams request =
+    request
+        |> MySession.withSession
+            (\session ->
+                case session of
+                    Ok okSession ->
+                        let
+                            flashMessage : Maybe String
+                            flashMessage =
+                                okSession
+                                    |> Session.get "message"
+                        in
+                        ( okSession
+                        , Data
+                            (okSession |> Session.get "name")
+                            flashMessage
+                            |> Response.render
+                        )
+                            |> BackendTask.succeed
 
-data : RouteParams -> Request.Parser (BackendTask FatalError (Response Data ErrorPage))
-data routeParams =
-    Request.oneOf
-        [ Request.succeed ()
-            |> MySession.withSession
-                (\() session ->
-                    case session of
-                        Ok okSession ->
-                            let
-                                flashMessage : Maybe String
-                                flashMessage =
-                                    okSession
-                                        |> Session.get "message"
-                            in
-                            ( okSession
-                            , Data
-                                (okSession |> Session.get "name")
-                                flashMessage
-                                |> Response.render
-                            )
-                                |> BackendTask.succeed
-
-                        _ ->
-                            ( Session.empty
-                            , { username = Nothing, flashMessage = Nothing }
-                                |> Response.render
-                            )
-                                |> BackendTask.succeed
-                )
-        ]
+                    _ ->
+                        ( Session.empty
+                        , { username = Nothing, flashMessage = Nothing }
+                            |> Response.render
+                        )
+                            |> BackendTask.succeed
+            )
 
 
 head : App Data ActionData RouteParams -> List Head.Tag
@@ -289,7 +291,6 @@ elmInnerForm fullApp =
     form
         |> Pages.Form.renderHtml
             [ class "space-y-6" ]
-            Pages.Form.Serial
             (Form.options "form"
                 |> Form.withServerResponse (fullApp.action |> Maybe.map .errors)
             )

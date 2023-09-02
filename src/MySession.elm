@@ -5,7 +5,7 @@ import BackendTask.Env as Env
 import Codec
 import FatalError exposing (FatalError)
 import Route
-import Server.Request exposing (Parser)
+import Server.Request exposing (Request)
 import Server.Response exposing (Response)
 import Server.Session as Session exposing (Session)
 import Server.SetCookie as SetCookie
@@ -13,9 +13,9 @@ import Server.SetCookie as SetCookie
 
 cookieOptions : Maybe SetCookie.Options
 cookieOptions =
-    SetCookie.initOptions
+    SetCookie.options
         |> SetCookie.withPath "/"
-        |> SetCookie.withSameSite SetCookie.Lax
+        |> SetCookie.withSameSite SetCookie.Strict
         |> Just
 
 
@@ -34,24 +34,23 @@ registro =
 
 
 withSession :
-    (request -> Result Session.NotLoadedReason Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
-    -> Parser request
-    -> Parser (BackendTask FatalError (Response data errorPage))
+    (Result Session.NotLoadedReason Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
+        -> Request
+        -> BackendTask FatalError (Response data errorPage)
 withSession =
     Session.withSessionResult
         registro
 
-
 withSessionOrRedirect :
-    (request -> Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
-    -> Parser request
-    -> Parser (BackendTask FatalError (Response data errorPage))
+    (Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
+    -> Request
+    -> BackendTask FatalError (Response data errorPage)
 withSessionOrRedirect toRequest handler =
     Session.withSessionResult
         registro
-        (\request sessionResult ->
+        (\sessionResult ->
             sessionResult
-                |> Result.map (toRequest request)
+                |> Result.map toRequest
                 |> Result.withDefault
                     (BackendTask.succeed
                         ( Session.empty
@@ -61,20 +60,19 @@ withSessionOrRedirect toRequest handler =
         )
         handler
 
-
 expectSessionOrRedirect :
-    (request -> Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
-    -> Parser request
-    -> Parser (BackendTask FatalError (Response data errorPage))
-expectSessionOrRedirect toRequest handler =
+    (Session.Session -> BackendTask FatalError ( Session.Session, Response data errorPage ))
+    -> Request
+    -> BackendTask FatalError (Response data errorPage)
+expectSessionOrRedirect toRequest request =
     Session.withSessionResult
         { name = "mysession"
         , secrets = secrets
         , options = Nothing
         }
-        (\request sessionResult ->
+        (\sessionResult ->
             sessionResult
-                |> Result.map (toRequest request)
+                |> Result.map toRequest
                 |> Result.withDefault
                     (BackendTask.succeed
                         ( Session.empty
@@ -82,7 +80,7 @@ expectSessionOrRedirect toRequest handler =
                         )
                     )
         )
-        handler
+        request
 
 
 schema =

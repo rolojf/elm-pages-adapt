@@ -11,5 +11,3 @@ el nombre "epa" y definimos el remote epa como:  `github.com/rolojf/elm-pages-ad
 3. Obtener los cambios usando este comando desde la terminal:
 `$git merge --no-edit epa/main --allow-unrelated-histories`
 Y continuar los cambios resolviendo conflictos desde magit.
-
-

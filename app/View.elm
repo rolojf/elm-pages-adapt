@@ -10,8 +10,8 @@ module View exposing
 -}
 
 import Html exposing (Html)
-import UrlPath exposing (UrlPath)
 import Route exposing (Route)
+import UrlPath exposing (UrlPath)
 
 
 {-| -}

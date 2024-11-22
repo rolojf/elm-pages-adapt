@@ -27,6 +27,7 @@ routes getStaticRoutes htmlToString =
     ]
 
 
+
 manifest : Manifest.Config
 manifest =
     let

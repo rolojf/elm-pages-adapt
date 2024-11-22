@@ -17,13 +17,13 @@ import MiCloudinary
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import PagesMsg exposing (PagesMsg)
-import UrlPath exposing (UrlPath)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
 import Simple.Animation as Animation exposing (Animation)
 import Simple.Animation.Animated as Animated
 import Simple.Animation.Property as P
 import Url
+import UrlPath exposing (UrlPath)
 import View exposing (View)
 
 
@@ -35,6 +35,8 @@ template =
     , data = data
     , subscriptions = subscriptions
     , onPageChange = Just OnPageChange
+
+    -- , onPageChange = Nothing  (así propone elm-pages-starter)
     }
 
 

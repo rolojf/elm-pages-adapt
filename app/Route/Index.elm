@@ -25,12 +25,12 @@ import MimeType exposing (MimeType)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
-import UrlPath exposing (UrlPath)
 import RouteBuilder exposing (App, StatefulRoute)
 import Shared
 import Simple.Animation as Animation exposing (Animation)
 import Simple.Animation.Animated as Animated
 import Simple.Animation.Property as P
+import UrlPath exposing (UrlPath)
 import View exposing (View)
 
 
@@ -52,25 +52,10 @@ type Msg
     = CierraNoti
     | NoOp
     | AvisadoAnalytics (Result Http.Error String)
-=======
-
-
-type alias Model =
-    {}
-
-
-type alias Msg =
-    ()
->>>>>>> elm-pages-starter/master
 
 
 type alias RouteParams =
     {}
-
-
-type alias Data =
-    { message : String
-    }
 
 
 type alias ActionData =
@@ -195,29 +180,12 @@ head app =
         , siteName = app.sharedData.siteName
         , image = logotipo
         , description = app.data.delMD.description
-        , locale = HardCodedData.localito
         , title = app.data.delMD.title
-    BackendTask.succeed Data
-        |> BackendTask.andMap
-            (BackendTask.succeed "Hello!")
+        , locale = HardCodedData.localito
+        }
+        |> Seo.website
 
 
-head :
-    App Data ActionData RouteParams
-    -> List Head.Tag
-head app =
-    Seo.summary
-        { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
-        , image =
-            { url = [ "images", "icon-png.png" ] |> UrlPath.join |> Pages.Url.fromPath
-            , alt = "elm-pages logo"
-            , dimensions = Nothing
-            , mimeType = Nothing
-            }
-        , description = "Welcome to elm-pages!"
-        , locale = Nothing
-        , title = "elm-pages is running"
 
 -- * View
 

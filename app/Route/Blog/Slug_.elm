@@ -83,4 +83,5 @@ view :
 view app sharedModel =
     { title = "Placeholder - Blog.Slug_"
     , body = [ Html.text "You're on the page Blog.Slug_" ]
+    , withMenu = View.NoMenu
     }

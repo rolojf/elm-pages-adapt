@@ -6,8 +6,8 @@ import FatalError exposing (FatalError)
 import HardCodedData
 import Html exposing (Html)
 import LanguageTag exposing (LanguageTag, emptySubtags)
-import LanguageTag.Country as Country
 import LanguageTag.Language
+import LanguageTag.Region as Region
 import MimeType
 import Pages.Manifest as Manifest
 import Pages.Manifest.Category as Category
@@ -25,7 +25,6 @@ routes getStaticRoutes htmlToString =
     [ BackendTask.succeed manifest
         |> Manifest.generator Site.canonicalUrl
     ]
-
 
 
 manifest : Manifest.Config
@@ -55,6 +54,6 @@ manifest =
             (LanguageTag.Language.es
                 |> LanguageTag.build
                     { emptySubtags
-                        | region = Just Country.mx
+                        | region = Just Region.mx
                     }
             )

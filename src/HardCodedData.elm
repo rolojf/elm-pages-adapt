@@ -1,7 +1,7 @@
 module HardCodedData exposing (..)
 
-import LanguageTag.Country
-import LanguageTag.Language
+import LanguageTag.Language exposing (Language)
+import LanguageTag.Region exposing (Region)
 
 
 dataModContacto : { description : String, title : String }
@@ -42,15 +42,15 @@ imagen =
    que se define con siteName el nombre del folder
 -}
 
+
 siteName : String
 siteName =
     "content"
 
 
-localito : Maybe ( LanguageTag.Language.Language, LanguageTag.Country.Country )
+localito : Maybe ( Language, Region )
 localito =
     Just
         ( LanguageTag.Language.es
-        , LanguageTag.Country.mx
+        , LanguageTag.Region.mx
         )
-

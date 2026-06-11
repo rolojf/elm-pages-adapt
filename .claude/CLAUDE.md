@@ -31,6 +31,33 @@ note, run `lamdera reset`.
 - `elm-pages build` — production build into `dist/`
 - `npx elm-pages run <path-or-ModuleName>` — run a script
 
+## This repo
+
+A public template (remote name `epa`) that downstream sites (psm1, cfd3, solarpaq1,
+psolar, reftex1) merge from with
+`git merge --no-edit epa/main --allow-unrelated-histories` (see README.md).
+`elm-pages` is pinned at exactly `3.5.1` (Elm package `dillonkearns/elm-pages` `12.3.0`).
+
+### Commands
+
+- `npm run elm` — dev server (`elm-pages dev`, port 1234)
+- `npm run tail` — compile `input.css` → `tailwind.css`; the dev server does NOT
+  watch Tailwind, so re-run this after changing classes
+- `npm run build` — production build: minified Tailwind, then `elm-pages build` → `dist/`
+- `npm run server` — serve `dist/` at http://127.0.0.12:8421
+- `npm run asdf` — deprecated S3 deploy
+- The `cli` script points to a nonexistent path; use `npx elm-pages` instead.
+
+There is no test suite. `elm-review` is installed but has no config directory.
+
+### Conventions
+
+- Parked/disabled routes are renamed to `.old` or `.elm.out` (e.g. `Login.old`,
+  `Temas.elm.out`) so the compiler skips them. Don't delete or "fix" them. Live
+  routes: `Index`, `About`, `Contacto`, `Blog/Slug_`, `Sub/Slug_`.
+- Page content lives in `content/` (markdown rendered via `src/MdConverter.elm`,
+  plus `shared.yaml`). `HardCodedData.siteName` selects the content folder.
+
 ## Mental model
 
 - Every route's `data : ... -> BackendTask FatalError Data` is resolved on the backend —
@@ -133,3 +160,26 @@ Builder start: `single` (static, no params) / `preRender` (static, needs `pages`
   `7.0.0-elm-package-upgrade-guide.md`.
 - Marketing-oriented intros (`01-what-is-elm-pages.md`, `03-philosophy.md`,
   `05-use-the-platform.md`) add nothing technical beyond the above.
+
+## Elm Code Navigation (use the elr MCP tools, not grep)
+
+This project has the `elr` Elm Language Server available via MCP. Prefer these
+tools over Grep/Read/Glob for any Elm code navigation or editing. They are
+faster and exact.
+
+- Finding where something is defined → `elm_definition`
+- Finding all usages of a symbol → `elm_references`
+- Listing symbols in a file/workspace → `elm_symbols`
+- Type info for a symbol → `elm_hover`
+- Checking for errors after an edit → `elm_diagnostics`
+- Formatting → `elm_format`
+- Renaming: `elm_rename_function`, `elm_rename_type`, `elm_rename_variant`,
+  `elm_rename_field`
+- Moving code: `elm_move_function`, `elm_rename_file`, `elm_move_file`
+- Removing a variant: `elm_prepare_remove_variant` then `elm_remove_variant`
+
+After editing any .elm file, run `elm_diagnostics` and fix errors before
+continuing.
+
+Only fall back to Grep for text/pattern searches where the LSP doesn't help:
+comments, string contents, config values, non-Elm files.

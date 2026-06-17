@@ -309,7 +309,7 @@ viewMenu localRoute dataDelYaml ligas menuOpen byeMenu toMsg =
                 (List.map
                     (\cadaLiga ->
                         setLink
-                            "tw ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                            "tw ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-xs text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                             (text cadaLiga.queDice)
                             cadaLiga
                     )
@@ -334,7 +334,7 @@ viewMenu localRoute dataDelYaml ligas menuOpen byeMenu toMsg =
                 (List.map
                     (\cadaLiga ->
                         setLink
-                            "tw w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                            "tw w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-xs text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                             (text cadaLiga.queDice)
                             cadaLiga
                     )
@@ -382,7 +382,7 @@ viewMenu localRoute dataDelYaml ligas menuOpen byeMenu toMsg =
                     [ class "tw -mr-2 -my-2 md:hidden" ]
                     [ Html.button
                         [ Attr.type_ "button"
-                        , class "tw bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                        , class "tw bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                         , Attr.attribute "aria-expanded" "false"
                         , Event.onClick ToggleMenu
                         ]
@@ -402,7 +402,7 @@ viewMenu localRoute dataDelYaml ligas menuOpen byeMenu toMsg =
                 showMovilMenu
                 [ class "tw absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden" ]
                 [ div
-                    [ class " tw bg-slate-100 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50" ]
+                    [ class " tw bg-slate-100 rounded-lg shadow-lg ring-1 ring-black/5 bg-white divide-y-2 divide-gray-50" ]
                     [ div
                         [ class "tw pt-5 pb-6 px-5" ]
                         [ div
@@ -420,7 +420,7 @@ viewMenu localRoute dataDelYaml ligas menuOpen byeMenu toMsg =
                                 [ Html.button
                                     [ Attr.type_ "button"
                                     , Event.onClick ToggleMenu
-                                    , class "tw bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                                    , class "tw bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                                     ]
                                     [ Html.span
                                         [ class "tw sr-only" ]

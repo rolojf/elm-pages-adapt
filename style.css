@@ -1,2 +1,6 @@
-@import 'tailwind.css';
-@import 'reto.css';
+@import "tailwindcss";
+@import "./reto.css";
+@config "./tailwind.config.cjs";
+@source "./app/**/*.elm";
+@source "./src/**/*.elm";
+@source "./content/**/*.{html,md}";

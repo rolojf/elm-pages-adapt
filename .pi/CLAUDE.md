@@ -1,0 +1,1 @@
+/home/sprite/repos/elm-pages-adapt/.claude/CLAUDE.md

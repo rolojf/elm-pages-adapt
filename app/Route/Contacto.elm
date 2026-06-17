@@ -355,7 +355,7 @@ viewFormulario model =
                         , Attr.minlength 2
                         , Attr.maxlength 15
                         , Attr.autocomplete True -- "given-name"
-                        , class "tw block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                        , class "tw block w-full shadow-xs sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                         , Events.onInput (\name -> PagesMsg.fromMsg <| Nombre name)
                         ]
                         []
@@ -376,7 +376,7 @@ viewFormulario model =
                         , Attr.name "last_name"
                         , Attr.id "last_name"
                         , Attr.autocomplete True -- "family-name"
-                        , class "tw block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                        , class "tw block w-full shadow-xs sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                         , Events.onInput (\lastName -> PagesMsg.fromMsg <| Apellido lastName)
                         ]
                         []
@@ -398,7 +398,7 @@ viewFormulario model =
                         , Attr.name "email"
                         , Attr.type_ "email"
                         , Attr.autocomplete True --"email"
-                        , class "tw block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                        , class "tw block w-full shadow-xs sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                         , Events.onInput (\elMail -> PagesMsg.fromMsg <| Correo elMail)
                         ]
                         []
@@ -432,7 +432,7 @@ viewFormulario model =
                         , Attr.value model.telefono
                         , Attr.autocomplete True -- "tel"
                         , Aria.ariaDescribedby "phone_description"
-                        , class "tw block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                        , class "tw block w-full shadow-xs sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                         , Events.onInput (\phone -> PagesMsg.fromMsg <| Telefono phone)
                         ]
                         []
@@ -462,7 +462,7 @@ viewFormulario model =
                         , Attr.name "how_can_we_help"
                         , Aria.ariaDescribedby "how_can_we_help_description"
                         , Attr.rows 4
-                        , class "tw block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border_gray_300 rounded-md"
+                        , class "tw block w-full shadow-xs sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                         , Events.onInput (\comment -> PagesMsg.fromMsg <| Comentario comment)
                         ]
                         []
@@ -483,7 +483,7 @@ viewFormulario model =
                         [ Attr.type_ "text"
                         , Attr.name "how_did_you_hear_about_us"
                         , Attr.id "how_did_you_hear_about_us"
-                        , class "tw shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w_full sm:text-sm border-gray-300 rounded-md"
+                        , class "tw shadow-xs focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         , Events.onInput (\deDonde -> PagesMsg.fromMsg <| ComoSupo deDonde)
                         ]
                         []
@@ -495,7 +495,7 @@ viewFormulario model =
                 [ class "tw text-right sm:col-span-2" ]
                 [ Html.button
                     [ Attr.type_ "submit"
-                    , class "tw inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    , class "tw inline-flex justify-center py-2 px-4 border border-transparent shadow-xs text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     ]
                     [ text "Enviar" ]
                 ]
@@ -537,7 +537,7 @@ viewChallenge cuantosIntentosVan respondioQue queHaRespondido =
         [ class "la-base-modal" ]
         [ div
             [ class <|
-                "tw bg-green-100 shadow rounded-lg mx-auto mt-24 w-10/12 h-64 md:max-w-md md:mx-auto md:mt-48"
+                "tw bg-green-100 shadow-sm rounded-lg mx-auto mt-24 w-10/12 h-64 md:max-w-md md:mx-auto md:mt-48"
                     ++ (if queHaRespondido == RespondioMal then
                             " tw animate-bounce"
 
@@ -567,7 +567,7 @@ viewChallenge cuantosIntentosVan respondioQue queHaRespondido =
                         ]
                         [ Html.text "número" ]
                     , Html.input
-                        [ class "tw text-center mx-2 w-5 rounded-md shadow-sm sm:leading-5 sm:text-sm"
+                        [ class "tw text-center mx-2 w-5 rounded-md shadow-xs sm:leading-5 sm:text-sm"
 
                         -- Tw.block, Tw.w_full del .apparel-campo
                         , Attr.id "valor-challenge"

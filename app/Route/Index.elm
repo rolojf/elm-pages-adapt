@@ -274,13 +274,13 @@ retroFinal titulo subtitulo debeAparecer =
         [ div
             [ class "tw w-full flex flex-col items-center space-y-4z sm:items-start lg:items-end" ]
             [ div
-                [ class "tw max-w-sm w-full bg-gray-200 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden" ]
+                [ class "tw max-w-sm w-full bg-gray-200 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black/5 overflow-hidden" ]
                 [ div
                     [ class "tw p-4" ]
                     [ div
                         [ class "tw flex items-start" ]
                         [ div
-                            [ class "tw flex-shrink-0" ]
+                            [ class "tw shrink-0" ]
                             [ HeroIcons.outlineCheckCircle ]
                         , div
                             [ class "tw ml-3 w-0 flex-1 pt-0.5" ]
@@ -292,9 +292,9 @@ retroFinal titulo subtitulo debeAparecer =
                                 [ text subtitulo ]
                             ]
                         , div
-                            [ class "tw ml-4 flex-shrink-0 flex" ]
+                            [ class "tw ml-4 shrink-0 flex" ]
                             [ Html.button
-                                [ class "tw bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                [ class "tw bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 , Event.onClick (PagesMsg.fromMsg CierraNoti)
                                 ]
                                 [ Html.span

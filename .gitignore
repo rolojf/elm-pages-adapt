@@ -12,3 +12,4 @@ functions/server-render
 .local/
 docs.json
 .netlify/
+local-visits.db*

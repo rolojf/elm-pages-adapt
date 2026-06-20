@@ -118,18 +118,8 @@ init flags maybePagePath =
 track : Msg -> Analytics.Event
 track msg =
     case msg of
-        OnPageChange nuevaPagina ->
-            let
-                queCambioReportar =
-                    nuevaPagina.path
-                        -- |> Path.toSegments
-                        |> List.reverse
-                        |> List.head
-                        |> Maybe.withDefault "index"
-                        |> String.append ("cambio-pagina" ++ "-menuliga-interna-")
-            in
-            Analytics.eventoXReportar
-                queCambioReportar
+        OnPageChange _ ->
+            Analytics.eventoXReportar "page-view"
 
         AnalyticsUsoMenuLigaExterna queLiga ->
             Analytics.eventoXReportar

@@ -272,7 +272,7 @@ retroFinal titulo subtitulo debeAparecer =
         , class "tw fixed inset-0 flex items-end px-4 py-6 z-20 pointer-events-none sm:p-6 lg:items-center"
         ]
         [ div
-            [ class "tw w-full flex flex-col items-center space-y-4z sm:items-start lg:items-end" ]
+            [ class "tw w-full flex flex-col items-center space-y-4 sm:items-start lg:items-end" ]
             [ div
                 [ class "tw max-w-sm w-full bg-gray-200 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black/5 overflow-hidden" ]
                 [ div

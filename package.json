@@ -12,11 +12,13 @@
     "build": "elm-pages build",
     "server:comment": "Run a server on dist/ build",
     "server": "python -m http.server 8421 --bind 127.0.0.12 --directory dist",
+    "lint:tw": "elm-pages run CheckTwClasses",
     "asdf:comment": "Deploy to S3 - deprecitated",
     "asdf": "aws s3 sync ./dist s3://solarpaq.com --delete"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/node": "4.3.1",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.1",
     "elm-codegen": "^0.6.1",
